@@ -402,7 +402,7 @@ object EnsimePlugin extends AutoPlugin {
 
     def configDataFor(config: Configuration): EnsimeProject = {
       val sbv = scalaBinaryVersion.gimme
-      val sources = ensureCreatedOrIgnore(ensimeIgnoreMissingDirectories.gimme, log) {
+      val sources = ensureCreatedOrIgnore(#MissingDirectories.gimme, log) {
         config match {
           case Compile => sourcesFor(Compile) ++ sourcesFor(Provided) ++ sourcesFor(Optional)
           case _       => sourcesFor(config)
@@ -445,7 +445,7 @@ object EnsimePlugin extends AutoPlugin {
       )
       if (!ensimeIgnoreScalaMismatch.gimme)
         throw new IllegalStateException(
-          """To ignore this error (i.e. you have multiple scala versions), customise `ensimeIgnoreScalaMismatch`"""
+          """To ignore this error (i.e. you have multiple scala versions), customise `ensimeIgnoreScalaMismatch in LocalProject("PROJECT") := true` for PROJECT to ignore in your ensime.sbt"""
         ) with NoStackTrace
     }
 
